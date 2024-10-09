@@ -15,43 +15,27 @@
         posthog.init('phc_AVynhpSkW2QWKJz6qmKl8cq09BccvrIBV4ocfKBV5am',{api_host:'https://us.i.posthog.com', person_profiles: 'identified_only' // or 'always' to create profiles for anonymous users as well })
     </script>
     <!-- Scroll Depth Tracking -->
-<script>
-    window.addEventListener('scroll', function() {
-        let scrollDepth = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+        <script>
+            window.addEventListener('scroll', function() {
+                let scrollDepth = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+                
+                if (scrollDepth > 25) {
+                    posthog.capture('scroll_depth', { depth: '25%' });
+                }
+                
+                if (scrollDepth > 50) {
+                    posthog.capture('scroll_depth', { depth: '50%' });
+                }
+                
+                if (scrollDepth > 75) {
+                    posthog.capture('scroll_depth', { depth: '75%' });
+                }
         
-        if (scrollDepth > 25) {
-            posthog.capture('scroll_depth', { depth: '25%' });
-        }
-        
-        if (scrollDepth > 50) {
-            posthog.capture('scroll_depth', { depth: '50%' });
-        }
-        
-        if (scrollDepth > 75) {
-            posthog.capture('scroll_depth', { depth: '75%' });
-        }
-
-        if (scrollDepth >= 100) {
-            posthog.capture('scroll_depth', { depth: '100%' });
-        }
-    });
-</script>
-
-<!-- Button Click Tracking for "Add to Cart" -->
-<script>
-    document.querySelectorAll('.add-to-cart-button').forEach(function(button) {
-        button.addEventListener('click', function() {
-            const productName = this.getAttribute('data-product-name');
-            const productPrice = this.getAttribute('data-product-price');
-            
-            // Send the event to PostHog
-            posthog.capture('add_to_cart', {
-                product_name: productName,
-                product_price: productPrice
+                if (scrollDepth >= 100) {
+                    posthog.capture('scroll_depth', { depth: '100%' });
+                }
             });
-        });
-    });
-</script>
+        </script>
 
 </head>
 
