@@ -36,6 +36,21 @@
                 }
             });
         </script>
+    <!-- Button Click Tracking for "Add to Cart" -->
+    <script>
+        document.querySelectorAll('.add-to-cart-button').forEach(function(button) {
+            button.addEventListener('click', function() {
+                const productName = this.getAttribute('data-product-name');
+                const productPrice = this.getAttribute('data-product-price');
+                
+                // Send the event to PostHog
+                posthog.capture('add_to_cart', {
+                    product_name: productName,
+                    product_price: productPrice
+                });
+            });
+        });
+    </script>
 
 </head>
 
